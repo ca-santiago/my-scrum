@@ -31,7 +31,7 @@ pipeline {
                     fi
                     """
                     // Run the new container
-                    sh "docker run -d --name ${DOCKER_CONTAINER} --network ${DOCKER_NETWORK} ${DOCKER_IMAGE}"
+                    sh "docker run -d --name ${DOCKER_CONTAINER} -p 3001:3000 ${DOCKER_IMAGE}"
                 }
             }
         }
