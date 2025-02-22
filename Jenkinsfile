@@ -24,14 +24,8 @@ pipeline {
                         docker rm ${DOCKER_CONTAINER}
                     fi
                     """
-                    // Ensure network exists
-                    sh """
-                    if ! docker network ls | grep -q ${DOCKER_NETWORK}; then
-                        docker network create ${DOCKER_NETWORK}
-                    fi
-                    """
                     // Run the new container
-                    sh "docker run -d --name ${DOCKER_CONTAINER} -p 3001:3000 ${DOCKER_IMAGE}"
+                    sh "docker run -d --name ${DOCKER_CONTAINER} -p 3001:3001 ${DOCKER_IMAGE}"
                 }
             }
         }
