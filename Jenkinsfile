@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'my-scrum'
         DOCKER_CONTAINER = 'my-scrum'
+        DOCKER_NETWORK = 'websites-network'
     }
 
     stages {
@@ -23,8 +24,14 @@ pipeline {
                         docker rm ${DOCKER_CONTAINER}
                     fi
                     """
+                    // Ensure network exists
+                    sh """
+                    if ! docker network ls | grep -q ${DOCKER_NETWORK}; then
+                        docker network create ${DOCKER_NETWORK}
+                    fi
+                    """
                     // Run the new container
-                    sh "docker run -d --name ${DOCKER_CONTAINER} -p 80:3000 ${DOCKER_IMAGE}"
+                    sh "docker run -d --name ${DOCKER_CONTAINER} --network ${DOCKER_NETWORK} ${DOCKER_IMAGE}"
                 }
             }
         }
