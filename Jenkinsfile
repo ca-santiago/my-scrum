@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'my-scrum'
         DOCKER_CONTAINER = 'my-scrum'
         DOCKER_NETWORK = 'websites-network'
-        PORT = 3001
+        PORT = 3002
     }
 
     stages {
