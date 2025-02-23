@@ -1,7 +1,10 @@
 # Build stage
-FROM node:20 AS build
+FROM node:20-alphine AS build
 
 WORKDIR /app
+
+ARG PORT=3001
+ENV PORT=$PORT
 
 COPY ./package*.json ./
 
@@ -11,7 +14,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 3001
+EXPOSE 3000
 
-# Correct way to start Next.js with a specific port
-CMD ["npm", "start", "--", "-p", "3001"]
+CMD ["npm", "start", "--", "-p", "3000"]

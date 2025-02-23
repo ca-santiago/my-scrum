@@ -5,6 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'my-scrum'
         DOCKER_CONTAINER = 'my-scrum'
         DOCKER_NETWORK = 'websites-network'
+        PORT = 3001
     }
 
     stages {
@@ -25,7 +26,7 @@ pipeline {
                     fi
                     """
                     // Run the new container
-                    sh "docker run -d --name ${DOCKER_CONTAINER} -p 3001:3001 ${DOCKER_IMAGE}"
+                    sh "docker run -d --name ${DOCKER_CONTAINER} -p ${PORT}:3000 ${DOCKER_IMAGE}"
                 }
             }
         }
