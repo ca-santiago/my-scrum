@@ -1,10 +1,9 @@
 # Build stage
-FROM node:20 as build
+FROM node:20 AS build
 
 WORKDIR /app
 
-COPY ./package.json /app/package.json
-COPY ./package-lock.json /app/package-lock.json
+COPY ./package*.json ./
 
 RUN npm ci
 
@@ -12,18 +11,7 @@ COPY . .
 
 RUN npm run build
 
-# Production stage
-FROM node:20-alpine as production
-
-WORKDIR /app
-
-# Copy necessary files from build stage
-COPY --from=build /app/package.json ./
-COPY --from=build /app/package-lock.json ./
-COPY --from=build /app/.next ./.next
-COPY --from=build /app/public ./public
-COPY --from=build /app/node_modules ./node_modules
-
 EXPOSE 3001
 
-CMD ["npm", "run", "start", "-p", "3001"]
+# Correct way to start Next.js with a specific port
+CMD ["npm", "start", "--", "-p", "3001"]
