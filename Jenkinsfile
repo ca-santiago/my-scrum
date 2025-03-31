@@ -26,7 +26,7 @@ pipeline {
                     fi
                     """
                     // Run the new container
-                    sh "docker run -d --name ${DOCKER_CONTAINER} -p ${PORT}:3000 ${DOCKER_IMAGE}"
+                    sh "docker run -d --restart always --name ${DOCKER_CONTAINER} -p ${PORT}:3000 ${DOCKER_IMAGE}"
                 }
             }
         }
